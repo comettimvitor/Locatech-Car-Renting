@@ -1,6 +1,8 @@
 package br.com.locatech.locatech.services;
 
+import br.com.locatech.locatech.dto.PersonRequestDTO;
 import br.com.locatech.locatech.entities.Person;
+import br.com.locatech.locatech.entities.Rent;
 import br.com.locatech.locatech.entities.Vehicle;
 import br.com.locatech.locatech.repositories.PersonRepository;
 import br.com.locatech.locatech.repositories.VehicleRepository;
@@ -29,14 +31,18 @@ public class PersonService {
         return this.personRepository.findById(id);
     }
 
-    public void savePerson(Person person) {
-        var save = this.personRepository.save(person);
+    public void savePerson(PersonRequestDTO personRequestDTO) {
+        var personEntity = returnPersonData(personRequestDTO);
 
-        Assert.state(save == 1, "Error saving person" + person.getName());
+        var save = this.personRepository.save(personEntity);
+
+        Assert.state(save == 1, "Error saving person " + personRequestDTO.name());
     }
 
-    public void updatePerson(Person person, Long id) {
-        var update = this.personRepository.update(person, id);
+    public void updatePerson(PersonRequestDTO person, Long id) {
+        var personEntity = returnPersonData(person);
+
+        var update = this.personRepository.update(personEntity, id);
 
         if(update == 0) {
             throw new RuntimeException("Person not found...");
@@ -49,5 +55,9 @@ public class PersonService {
         if(delete == 0){
             throw new RuntimeException("Person not found...");
         }
+    }
+
+    private Person returnPersonData(PersonRequestDTO personRequestDTO) {
+        return new Person(personRequestDTO);
     }
 }

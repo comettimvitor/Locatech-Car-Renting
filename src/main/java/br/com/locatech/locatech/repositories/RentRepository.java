@@ -13,4 +13,6 @@ public interface RentRepository {
     Integer save(Rent rent);
     Integer update(Rent rent, Long id);
     Integer delete(Long id);
+    boolean isVehicleAvailable(Rent rent);
+
 }
