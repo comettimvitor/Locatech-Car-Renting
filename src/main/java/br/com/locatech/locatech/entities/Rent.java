@@ -6,7 +6,12 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-//Annotations from Lombok.
+/**
+ * Represents the action of rent a car.
+ * <p>This class uses Lombok annotations to automatically generate getters and setters, along with equals,
+ * hashCode and toString methods.</p>
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor

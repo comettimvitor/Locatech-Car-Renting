@@ -1,8 +1,9 @@
 package br.com.locatech.locatech.controller.handlers;
 
-import br.com.locatech.locatech.dto.ResourceNotFoundDTO;
-import br.com.locatech.locatech.dto.ValidationErrorDTO;
+import br.com.locatech.locatech.dto.*;
+import br.com.locatech.locatech.services.exceptions.DateOutOfBoundsException;
 import br.com.locatech.locatech.services.exceptions.ResourceNotFoundException;
+import br.com.locatech.locatech.services.exceptions.VehicleNotAvailableException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,5 +34,19 @@ public class ControllerExceptionHandler {
         }
 
         return ResponseEntity.status(status.value()).body(new ValidationErrorDTO(errors, status.value()));
+    }
+
+    @ExceptionHandler(VehicleNotAvailableException.class)
+    public ResponseEntity<VehicleAvailableDTO> handleVehicleNotAvailable(VehicleNotAvailableException ex) {
+        var status = HttpStatus.CONFLICT;
+
+        return ResponseEntity.status(status.value()).body(new VehicleAvailableDTO(ex.getMessage(), status.value()));
+    }
+
+    @ExceptionHandler(DateOutOfBoundsException.class)
+    public ResponseEntity<DateOutOfBoundsDTO> handleDateOutOfBounds(DateOutOfBoundsException ex) {
+        var status = HttpStatus.BAD_REQUEST;
+
+        return ResponseEntity.status(status.value()).body(new DateOutOfBoundsDTO(ex.getMessage(), status.value()));
     }
 }

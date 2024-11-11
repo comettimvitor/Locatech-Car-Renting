@@ -1,10 +1,11 @@
 package br.com.locatech.locatech.repositories;
 
-import br.com.locatech.locatech.entities.Person;
 import br.com.locatech.locatech.entities.Rent;
+import br.com.locatech.locatech.entities.Vehicle;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +53,10 @@ public class RentRepositoryImp implements RentRepository{
 
     @Override
     public Integer save(Rent rent) {
-        String sqlInsert = "INSERT INTO rent(person_id, vehicle_id, begin_date, end_date, total_price) VALUES(:person_id, :vehicle_id, :begin_date, :end_date, :total_price)";
+
+        String sqlInsert = "INSERT INTO rent(person_id, vehicle_id, begin_date, end_date, total_price) VALUES(:person_id, :vehicle_id, :begin_date, :end_date, :total_price); \r\n";
+
+        sqlInsert += "UPDATE vehicles SET available = false WHERE id = :vehicle_id;";
 
         return this.jdbcClient.sql(sqlInsert)
                 .param("person_id", rent.getPersonId())
@@ -84,5 +88,15 @@ public class RentRepositoryImp implements RentRepository{
         return this.jdbcClient.sql(sqlDelete)
                 .param("id", id)
                 .update();
+    }
+
+    @Override
+    public boolean isVehicleAvailable(Rent rent) {
+        Long vehicleId = rent.getVehicleId();
+        String sqlSelect = "SELECT available FROM vehicles where id = " + vehicleId;
+
+        String isAvailable = this.jdbcClient.sql(sqlSelect).query().singleValue().toString();
+
+        return Boolean.parseBoolean(isAvailable);
     }
 }

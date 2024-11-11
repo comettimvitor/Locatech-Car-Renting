@@ -5,11 +5,15 @@ CREATE TABLE vehicles(
     plate VARCHAR(255),
     vehicle_year INT,
     color VARCHAR(255),
-    daily_price DECIMAL(10,2)
+    daily_price DECIMAL(10,2),
+    available boolean
 );
 
-INSERT INTO vehicles(brand, model, plate, vehicle_year, color, daily_price)
-VALUES ('Chevrolet', 'Celta', 'ABC-1234', 2010, 'Black', 500.00);
+INSERT INTO vehicles(brand, model, plate, vehicle_year, color, daily_price, available)
+VALUES ('Chevrolet', 'Celta', 'ABC-1234', 2010, 'Black', 500.00, true);
+
+INSERT INTO vehicles(brand, model, plate, vehicle_year, color, daily_price, available)
+VALUES ('Fiat', 'Uno', 'ABC-4444', 2012, 'White', 400.00, true);
 
 CREATE TABLE person(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -33,5 +37,3 @@ CREATE TABLE rent(
     FOREIGN KEY (vehicle_id) REFERENCES vehicles(id)
 );
 
-INSERT INTO rent(person_id, vehicle_id, begin_date, end_date, total_price)
-VALUES (1, 1, '2024-10-01', '2024-10-15', 1500.00);
