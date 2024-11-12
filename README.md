@@ -10,6 +10,7 @@ Java and Spring Framework: Leveraging the Spring ecosystem for dependency inject
 - MVC Architecture: Separates business logic, data access, and presentation layers for better maintainability.
 
 ## Swagger Integration
-<p>For easy documentation and exploration of API endpoints, Swagger UI has been configured. Access it locally at: http://localhost:8080/swagger-ui/index.html
+<p>For easy documentation and exploration of API endpoints, Swagger UI has been configured. Access it locally at: 
+[http://localhost:8080/swagger-ui/index.html]
 This interface provides a graphical way to interact with the API, explore endpoints, and understand the data models used.</p>
 
