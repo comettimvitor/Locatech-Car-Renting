@@ -11,6 +11,6 @@ Java and Spring Framework: Leveraging the Spring ecosystem for dependency inject
 
 ## Swagger Integration
 <p>For easy documentation and exploration of API endpoints, Swagger UI has been configured. Access it locally at: 
-[http://localhost:8080/swagger-ui/index.html]
+http://localhost:8080/swagger-ui/index.html
 This interface provides a graphical way to interact with the API, explore endpoints, and understand the data models used.</p>
 
